@@ -81,12 +81,12 @@ const LoginPage = () => {
         <div className="w-screen h-screen bg-cover">
             <ToastContainer containerId={`toastLogin`} /> 
             <div className="w-full h-full bg-login bg-cover flex justify-center items-center p-10">
-                <div className="w-full md:w-6/12 lg:w-4/12 min-h-[600px] border rounded-xl bg-white bg-opacity-30 backdrop-blur- p-5 flex flex-col items-center relative">
+                <div className="w-full md:w-6/12 lg:w-4/12 min-h-[600px] border rounded-xl bg-white bg-opacity-35 backdrop-blur-p-5 flex flex-col items-center relative">
                     <div className="absolute bottom-0 left-0 w-full py-2 text-center">
                         <small className="text-white">Copyright @2024</small>
                     </div>
-                    <Image alt="fooder" width={150} height={100} src={`/image/makanan.jpg`} className="h-auto my-10 rounded-xl" />
-                    <h4 className="text-2xl uppercase font-semibold text-primary mb-4 text-white">FOODER</h4>
+                    <Image alt="fooder" width={150} height={100} src={`/image/LogoWizzmie.png`} className="h-auto my-10 rounded-xl" />
+                    <h4 className="text-2xl uppercase font-semibold text-primary mb-4 text-white">WizzMie</h4>
                     <span className="text-sm text-white font-medium text-center">
                         Selamat Datang
                     </span>

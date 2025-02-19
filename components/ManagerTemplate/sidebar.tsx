@@ -6,7 +6,7 @@ import MenuItem from "./menuItem"
 import Logo from '../../public/image/LogoWizzmie.png'
 import Profile from '../../public/image/Profile.jpg'
 import { removeCookie } from '@/lib/client-cookie'
-import { useRouter } from "next/navigation" 
+import { useRouter } from "next/navigation"
 
 type MenuType = {
   id: string,
@@ -38,11 +38,11 @@ const Sidebar = ({ children, id, title, menuList }: ManagerProp) => {
     removeCookie("role")
     router.replace(`/login`)
   };
-    
+
   return (
     <div className="w-full min-h-dvh bg-slate-50">
       {/* header section */}
-      <header className="flex justify-between items-center p-4 mb-0 bg-black shadow-md">
+      <header className="flex justify-between items-center p-4 mb-0 bg-purple-600 shadow-md">
         <div className="flex gap-2">
           <button onClick={() => setIsShow(true)}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white">
@@ -86,13 +86,13 @@ const Sidebar = ({ children, id, title, menuList }: ManagerProp) => {
 
       {/* sidebar section */}
       <div className={`flex flex-col w-2/3 md:w-1/2 lg:w-1/4 h-full fixed top-0 right-full transition-transform z-50 
-           bg-black border-r border-primary ${isShow ? `translate-x-full` : ``}`}>
+           bg-purple-600 border-r border-primary ${isShow ? `translate-x-full` : ``}`}>
 
         {/* close button */}
         <div className="ml-auto p-2">
           <button onClick={() => setIsShow(false)}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
-              <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 118 0 9 9 0 0 1 18 0Z" />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
             </svg>
           </button>
         </div>

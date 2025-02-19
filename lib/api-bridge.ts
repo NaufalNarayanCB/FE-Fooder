@@ -3,118 +3,101 @@ import { BASE_API_URL } from "@/global";
 
 const axiosInstance = axios.create({
     baseURL: BASE_API_URL
-})
-
-type CustomAxiosError<T = any> ={
-    response?: {
-        data: T
-        status: number;
-        headers: Record<string, string>;
-    }
-    request?: any;
-    message: string;
-    code: string;
-}
+});
 
 type ApiResponse<T = any> = {
     status: boolean;
-    data: T;
+    data?: T;
     message?: string;
-}
+};
 
-export const get = async (url: string, token: string) => {
+export const get = async (url: string, token: string): Promise<ApiResponse> => {
     try {
-        let headers: any = {
-            "Authorization": `Bearer ${token}` || '',
-        }
-        let result = await axiosInstance.get(url, {
-            headers
-        })
-
+        let headers = {
+            "Authorization": token ? `Bearer ${token}` : ''
+        };
+        let result = await axiosInstance.get(url, { headers });
 
         return {
             status: true,
             data: result.data
-        }
-    } catch (error) {
-        const err = error as CustomAxiosError<{ message: string, code: number }>
-        if (err.response) {
-            console.log(err.response.data.message);
-            return {
-                status: false,
-                message: `${err.code}: something wrong`
-            }
-        }
-        console.log(err.response);
-        return {
-            status: false,
-            message: `Something were wrong: ${error}`
-        }
-    }
-}
+        };
+    } catch (error: any) {
+        console.error("Error Response:", error.response?.data); // Debugging
 
-export const post = async (url: string, data: string | FormData, token: string) => {
+        return {
+            status: false,
+            message: error.response?.data?.message ?? "An unknown error occurred"
+        };
+    }
+};
+
+export const post = async (url: string, data: string | FormData, token: string): Promise<ApiResponse> => {
     try {
-        const typed: string = (typeof data == 'string') ? "application/json" : "multipart/form-data"
-        let headers: any = {
-            "Authorization": `Bearer ${token}` || '',
-            "Content-Type": typed
-        }
- 
- 
-        let result = await axiosInstance.post(url, data, {
-            headers
-        })
- 
- 
+        const contentType = typeof data === "string" ? "application/json" : "multipart/form-data";
+        let headers = {
+            "Authorization": token ? `Bearer ${token}` : '',
+            "Content-Type": contentType
+        };
+
+        let result = await axiosInstance.post(url, data, { headers });
+
         return {
             status: true,
             data: result.data
-        }
-    } catch (error) {
-        const err = error as CustomAxiosError<{ message: string, code: number }>
-        if (err.response) {
-            console.log(err.response.data.message);
-            return {
-                status: false,
-                message: `${err.response.data.message}`
-            }
-        }
-        console.log(err.response);
+        };
+    } catch (error: any) {
+        console.error("Error Response:", error.response?.data); // Debugging
+
         return {
             status: false,
-            message: `Something were wrong`
-        }
+            message: error.response?.data?.message ?? "An unknown error occurred"
+        };
     }
- }
- 
- export const put = async (url: string, data: string | FormData, token: string) => {
+};
+
+export const put = async (url: string, data: string | FormData, token: string): Promise<ApiResponse> => {
     try {
-        const type: string = (typeof data == 'string') ? "application/json" : "multipart/form-data"
-        let result = await axiosInstance.put(url, data, {
-            headers: {
-                "Authorization": `Bearer ${token}` || '',
-                "Content-Type": type
-            }
-        })
+        const contentType = typeof data === "string" ? "application/json" : "multipart/form-data";
+        let headers = {
+            "Authorization": token ? `Bearer ${token}` : '',
+            "Content-Type": contentType
+        };
+
+        let result = await axiosInstance.put(url, data, { headers });
+
         return {
             status: true,
             data: result.data
-        }
-    } catch (error) {
-        const err = error as CustomAxiosError<{ message: string, code: number }>
-        if (err.response) {
-            console.log(err.response.data.message);
-            return {
-                status: false,
-                message: `${err.code}: something wrong`
-            }
-        }
-        console.log(err.response);
+        };
+    } catch (error: any) {
+        console.error("Error Response:", error.response?.data); // Debugging
+
         return {
             status: false,
-            message: `Something were wrong`
-        }
+            message: error.response?.data?.message ?? "An unknown error occurred"
+        };
     }
- }
- 
+};
+
+export const drop = async (url: string, token: string): Promise<ApiResponse> => {
+    try {
+        let headers = {
+            "Authorization": token ? `Bearer ${token}` : '',
+        };
+
+        let result = await axiosInstance.delete(url, { headers });
+
+        return {
+            status: true,
+            data: result.data
+        };
+    } catch (error: any) {
+        console.error("Error Response:", error.response?.data); // Debugging
+
+        return {
+            status: false,
+            message: error.response?.data?.message ?? "An unknown error occurred"
+        };
+    }
+};
